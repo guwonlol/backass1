@@ -8,10 +8,9 @@ const PORT = 3000;
 // Middleware
 app.use(express.json());
 
-// Path to data.json
+// Path 
 const filePath = path.join(__dirname, "data.json");
 
-// Helper functions
 function readData() {
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw);
@@ -21,10 +20,7 @@ function writeData(data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
-/* ======================
-   DEMO ROUTES
-====================== */
-
+// DEMO
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
@@ -41,17 +37,13 @@ app.get("/status", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
-/* ======================
-   BOOKS CRUD
-====================== */
-
-// GET all books
+// CRUD
 app.get("/books", (req, res) => {
   const data = readData();
   res.json(data.books);
 });
 
-// POST new book
+
 app.post("/books", (req, res) => {
   const data = readData();
 
@@ -66,7 +58,7 @@ app.post("/books", (req, res) => {
   res.status(201).json(newBook);
 });
 
-// PUT update book
+
 app.put("/books/:id", (req, res) => {
   const data = readData();
   const id = Number(req.params.id);
@@ -83,7 +75,7 @@ app.put("/books/:id", (req, res) => {
   res.json(book);
 });
 
-// DELETE book
+
 app.delete("/books/:id", (req, res) => {
   const data = readData();
   const id = Number(req.params.id);
@@ -100,7 +92,7 @@ app.delete("/books/:id", (req, res) => {
   res.json({ success: true });
 });
 
-// Start server
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
